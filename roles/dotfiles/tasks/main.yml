@@ -8,6 +8,7 @@
     dest: "{{ lookup('env', 'HOME') }}/dotfiles"
     recursive: yes
     update: yes
+    accept_hostkey: yes
     version: main
 
 - name: Stow dotfiles
