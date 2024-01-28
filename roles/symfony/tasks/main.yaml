@@ -1,0 +1,38 @@
+---
+- name: Install php
+  apt: 
+    pkg: 
+      - php
+      - php-cli
+      - php-curl
+      - php-fileinfo
+      - php-intl
+      - openssl
+      - php-mbstring
+      - php-mysql
+
+- name: Download symfony install script
+  get_url:
+    url: 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh'
+    dest: /tmp/setup.deb.sh
+    mode: '744'
+
+- name: Run install script
+  #become: true
+  shell: /tmp/setup.deb.sh
+  args:
+    executable: /bin/bash
+    
+- name: Install symfony-cli
+  apt:
+    pkg:
+    - symfony-cli
+
+- name: Download and install Composer
+  become: true
+  shell: >
+    php -r "copy('https://getcomposer.org/installer', '/tmp/composer-setup.php');"
+    php -r "if (hash_file('sha384', '/tmp/composer-setup.php') === 'EXPECTED_HASH') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('/tmp/composer-setup.php'); } echo PHP_EOL;"
+    php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
+  args:
+    executable: /bin/bash
