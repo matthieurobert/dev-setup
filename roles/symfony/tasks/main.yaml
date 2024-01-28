@@ -10,6 +10,7 @@
       - openssl
       - php-mbstring
       - php-mysql
+      - php-simplexml
 
 - name: Download symfony install script
   get_url:
