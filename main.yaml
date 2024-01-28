@@ -5,3 +5,5 @@
   roles:
     - zsh 
     - symfony
+    - node
+    - angular

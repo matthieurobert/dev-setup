@@ -1,0 +1,5 @@
+---
+- name: Install angular
+  shell: npm install -g @angular/cli
+  args:
+    executable: /bin/bash
