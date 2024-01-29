@@ -1,0 +1,20 @@
+---
+- name: Install required packages
+  apt:
+    pkg:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg
+
+- name: Add doppler repository
+  become: true
+  shell: >
+    (curl -Ls --tlsv1.2 --proto "=https" --retry 3 https://cli.doppler.com/install.sh || wget -t 3 -qO- https://cli.doppler.com/install.sh) | sudo sh
+  args:
+    executable: /bin/bash
+
+- name: Install doppler
+  apt:
+    pkg:
+      - doppler
