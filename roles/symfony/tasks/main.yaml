@@ -11,6 +11,7 @@
       - php-mbstring
       - php-mysql
       - php-simplexml
+      - composer
 
 - name: Download symfony install script
   get_url:
@@ -28,12 +29,3 @@
   apt:
     pkg:
     - symfony-cli
-
-- name: Download and install Composer
-  become: true
-  shell: >
-    php -r "copy('https://getcomposer.org/installer', '/tmp/composer-setup.php');"
-    php -r "if (hash_file('sha384', '/tmp/composer-setup.php') === 'EXPECTED_HASH') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('/tmp/composer-setup.php'); } echo PHP_EOL;"
-    php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
-  args:
-    executable: /bin/bash
