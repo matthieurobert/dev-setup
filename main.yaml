@@ -8,3 +8,4 @@
     - node
     - angular
     - doppler
+    - k8s_tools

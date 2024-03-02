@@ -1,0 +1,31 @@
+---
+# tasks file for setup
+- name: Install k0sctl
+  become: true
+  ansible.builtin.get_url:
+    url: https://github.com/k0sproject/k0sctl/releases/download/v0.16.0/k0sctl-linux-x64
+    dest: /usr/local/bin/k0sctl
+    mode: '0755'
+
+- name: Install kubectl
+  become: true
+  ansible.builtin.get_url:
+    url: https://storage.googleapis.com/kubernetes-release/release/v1.21.0/bin/linux/amd64/kubectl
+    dest: /usr/local/bin/kubectl
+    mode: '0755'
+
+- name: Install k9s
+  become: true
+  ansible.builtin.get_url:
+    url: https://github.com/derailed/k9s/releases/download/v0.28.2/k9s_Linux_amd64.tar.gz
+    dest: /tmp/k9s.tar.gz
+    mode: '0755'
+
+- name: Extract k9s
+  become: true
+  ansible.builtin.unarchive:
+    src: /tmp/k9s.tar.gz
+    dest: /usr/local/bin
+    remote_src: yes
+    creates: /usr/local/bin/k9s
+    
